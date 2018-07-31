@@ -10,3 +10,5 @@ The basic steps are as below.
 * The Create event is distributed by WAN Gateway from the sender side region to the receiver side region.
 * Get Create event at the receiver side region with using AsyncEventListener (OpsExecutionAsyncEventListener). This is because of reducing duplicate events, esperically in the case of Replicated region with applying the CacheListener to all the members hosting the region.
 * In the AsyncEventListener, execute Region#clear() if getting the special data entries regenerated at sender side instead of Regoin_Clear event.
+
+This sample is targetted to Pivotal GemFire 8.x.
