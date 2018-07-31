@@ -1,7 +1,7 @@
 # Idea to distribute Region_Clear events via WAN Gateway
 According to the specification of events distribution via WAN Gateway of Pivotal GemFire, it does not Region_Clear event to receiver side - i.e. even if executing Region#clear() at the sender side region, it is not executed at the receiver side region.
 
-This sample emulate Region_Clear event distribution via WAN Gateway by replacing the event to Create event with using CacheListener.
+This sample emulates Region_Clear event distribution via WAN Gateway by replacing the event to Create event with using CacheListener.
 
 The basic steps are as below.
 
