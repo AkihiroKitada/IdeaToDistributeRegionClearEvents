@@ -1,0 +1,2 @@
+#! /bin/sh
+gfsh start locator --name=SLocator --bind-address=localhost --port=59222 --dir=./SLocator --max-heap=512m --properties-file=./resources/gemfire-s.properties --J=-Dgemfire.log-file=SLocator.log

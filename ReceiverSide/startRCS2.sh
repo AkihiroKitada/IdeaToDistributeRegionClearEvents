@@ -1,0 +1,2 @@
+#! /bin/sh
+gfsh start server --name=RCache2 --dir=RCache2 --cache-xml-file=./resources/receiver-ase.xml --properties-file=./resources/gemfire-r.properties --classpath=/Users/akitada/IdeaProjects/IdeaToDistributeRegionClearEvents/out/production/IdeaToDistributeRegionClearEvents
