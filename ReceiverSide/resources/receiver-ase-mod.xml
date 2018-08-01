@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://schema.pivotal.io/gemfire/cache"
+       xsi:schemaLocation="http://schema.pivotal.io/gemfire/cache http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd"
+       version="8.1" lock-lease="120" lock-timeout="60" search-timeout="300">
+
+    <gateway-receiver manual-start="false" start-port="11530" end-port="11551"/>
+
+    <async-event-queue id="opsAseq" dispatcher-threads="1" parallel="false"
+                       maximum-queue-memory="1024" enable-batch-conflation="true"
+                       batch-size="10" batch-time-interval="1000" persistent="false" >
+        <async-event-listener>
+            <class-name>akitada.RegionOperationExecutionAsyncEventListener</class-name>
+        </async-event-listener>
+    </async-event-queue>
+
+    <cache-server max-threads="100" notify-by-subscription="false" port="0"
+                  socket-buffer-size="96000">
+    </cache-server>
+
+    <pdx ignore-unread-fields="false" read-serialized="false" persistent="false">
+        <pdx-serializer>
+            <class-name>
+                com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer
+            </class-name>
+            <parameter name="classes">
+                <string>akitada.*</string>
+            </parameter>
+        </pdx-serializer>
+    </pdx>
+
+    <region name="ExampleRegion" refid="REPLICATE">
+        <region-attributes statistics-enabled="false" >
+        </region-attributes>
+    </region>
+
+    <region name="RegionOperation" refid="REPLICATE">
+        <region-attributes async-event-queue-ids="opsAseq" statistics-enabled="false" >
+        </region-attributes>
+    </region>
+
+</cache>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://schema.pivotal.io/gemfire/cache"
+       xsi:schemaLocation="http://schema.pivotal.io/gemfire/cache http://schema.pivotal.io/gemfire/cache/cache-8.1.xsd"
+       version="8.1" lock-lease="120" lock-timeout="60" search-timeout="300">
+
+    <gateway-sender id="sender" remote-distributed-system-id="1" dispatcher-threads="1" parallel="false"
+                    maximum-queue-memory="1024" manual-start="false" enable-batch-conflation="false"
+                    batch-size="10" batch-time-interval="100" socket-buffer-size="200000"
+                    enable-persistence="false" />
+
+    <cache-server max-threads="0" notify-by-subscription="false" port="0"
+                  socket-buffer-size="96000">
+    </cache-server>
+
+    <pdx ignore-unread-fields="true" read-serialized="false" persistent="false" >
+        <pdx-serializer>
+            <class-name>
+                com.gemstone.gemfire.pdx.ReflectionBasedAutoSerializer
+            </class-name>
+            <parameter name="classes">
+                <string>akitada.*</string>
+            </parameter>
+        </pdx-serializer>
+    </pdx>
+
+    <region name="ExampleRegion" refid="REPLICATE">
+        <region-attributes gateway-sender-ids="sender" statistics-enabled="false" >
+            <cache-listener>
+                <class-name>akitada.RegionOperationListenerAdaptor</class-name>
+            </cache-listener>
+        </region-attributes>
+    </region>
+
+    <region name="RegionOperation" refid="REPLICATE">
+        <region-attributes gateway-sender-ids="sender" statistics-enabled="false" >
+        </region-attributes>
+    </region>
+</cache>
