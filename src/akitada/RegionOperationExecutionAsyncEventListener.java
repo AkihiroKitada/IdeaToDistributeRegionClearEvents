@@ -17,8 +17,6 @@ public class RegionOperationExecutionAsyncEventListener implements AsyncEventLis
 
   static final Logger LOGGER = LogManager.getLogger(RegionOperationExecutionAsyncEventListener.class);
 
-  private final static String OPS_REGION = "RegionOperation";
-  private final static String OPS_KEY = "OPERATION";
   private final static String OPS_VALUE = "CLEAR";
   private Cache cache = null;
 
@@ -32,12 +30,11 @@ public class RegionOperationExecutionAsyncEventListener implements AsyncEventLis
     LOGGER.info("Size of List<AsyncEvent> = " + list.size());
 
     for (AsyncEvent ae : list) {
-      if (ae.getOperation().equals(Operation.CREATE) && ae.getKey().equals(OPS_KEY)
-          && ((RegionOperation) ae.getDeserializedValue()).getOperation().equals(OPS_VALUE)) {
-        Region<Object, Object> targetRegion = cache.getRegion(((RegionOperation) ae.getDeserializedValue()).getTargetRegion());
+      if (ae.getOperation().equals(Operation.CREATE) && ae.getDeserializedValue().equals(OPS_VALUE)) {
+        Region<Object, Object> targetRegion = cache.getRegion((String) ae.getKey());
         targetRegion.clear();
-        LOGGER.info("Got update/create event for " + targetRegion.getName()
-            + " region to trigger clear region operatoin.");
+        LOGGER.info("Got Create event for " + targetRegion.getName()
+            + " region to trigger region.clear operatoin.");
       }
     }
     return true;
