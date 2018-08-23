@@ -1,2 +1,2 @@
 #! /bin/sh
-gfsh start server --name=SCache2 --dir=SCache2 --cache-xml-file=./xml/sender-cw.xml --properties-file=./gemfire-s.properties --classpath=/Users/akitada/IdeaProjects/IdeaToDistributeRegionClearEvents/out/production/IdeaToDistributeRegionClearEvents
+gfsh start server --name=SCache2 --dir=SCache2 --cache-xml-file=./xml/sender-command.xml --properties-file=./gemfire-s.properties --classpath=/Users/akitada/IdeaProjects/IdeaToDistributeRegionClearEvents/out/production/IdeaToDistributeRegionClearEvents
